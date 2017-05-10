@@ -61,7 +61,7 @@ and the external one is `49984`.
 
 The external ports might change, so for the following use the ports as indicated by `docker-compose ps`.
 
-You can simply check if it's running by going to `http://localhost<external-docker-port-bdb-server>`.
+You can simply check if it's running by going to `http://localhost:<external-docker-port-bdb-server>`.
 
 If you already built the images and want to `restart`:
 
@@ -97,8 +97,8 @@ docker-compose up -d bdb-server
 
 For the client you'll need `node` and `npm`: These versions or higher should work:
 
-- `node`: v6.2.2
-- `npm`: v3.9.5
+- `node`: `v6.2.2`
+- `npm`: `v3.9.5`
 
 ### Install
 
@@ -117,4 +117,4 @@ Note that hot reloading is enabled and should pick up all the changes in the `js
 
 ## BigchainDB JavaScript Driver
 
-see the [js-bigchaindb-driver](https://github.com/ascribe/js-bigchaindb-driver) for more details
+see the [js-bigchaindb-driver](https://github.com/bigchaindb/js-bigchaindb-driver) for more details
