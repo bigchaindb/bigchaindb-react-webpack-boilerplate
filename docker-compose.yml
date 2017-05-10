@@ -1,0 +1,31 @@
+version: '2'
+
+services:
+  mdb:
+    image: mongo:3.4.3
+    ports:
+      - "27017"
+    command: mongod --replSet=bigchain-rs
+
+  bdb-server:
+    build:
+      context: ./bigchaindb-server
+      dockerfile: Dockerfile-dev
+    volumes:
+      - ./bigchaindb-server/bigchaindb:/usr/src/app/bigchaindb
+      - ./bigchaindb-server/tests:/usr/src/app/tests
+      - ./bigchaindb-server/docs:/usr/src/app/docs
+      - ./bigchaindb-server/setup.py:/usr/src/app/setup.py
+      - ./bigchaindb-server/setup.cfg:/usr/src/app/setup.cfg
+      - ./bigchaindb-server/pytest.ini:/usr/src/app/pytest.ini
+      - ./bigchaindb-server/tox.ini:/usr/src/app/tox.ini
+      - ./bigchaindb-server/k8s:/usr/src/app/k8s
+    environment:
+      BIGCHAINDB_DATABASE_BACKEND: mongodb
+      BIGCHAINDB_DATABASE_HOST: mdb
+      BIGCHAINDB_SERVER_BIND: 0.0.0.0:9984
+      BIGCHAINDB_KEYPAIR_PUBLIC: GW1nrdZm4mbVC8ePeiGWz6DqHexqewqy5teURVHi3RG4
+      BIGCHAINDB_KEYPAIR_PRIVATE: 2kQgBtQnHoauw8QchKM7xYvEBW1QDoHzhBsCL9Vi1AzB
+    ports:
+      - "49984:9984"
+    command: bigchaindb start
