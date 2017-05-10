@@ -33,7 +33,7 @@ These versions or higher should work:
 - `docker`: `v1.13.0`
 - `docker-compose`: `v1.7.1`
 
-#### Locally launch BigchainDB server and other (sometimes experimental) services 
+#### Locally launch BigchainDB server
 
 To spin up the services, simple run the make command, which will orchestrate `docker-compose`
 
