@@ -43,7 +43,7 @@ make
 
 This might take a few minutes, perfect moment for a :coffee:!
 
-Once docker-composed has built and launched all services, have a look:
+Once docker-compose has built and launched all services, have a look:
 
 ```bash
 docker-compose ps
