@@ -1,10 +1,12 @@
-# BigchainDB + React + Webpack boilerplate 
+# BigchainDB + React boilerplate
+
+This is simple react boilerplate with basic create transaction included. To replicate client code check REPLICATE.md
 
 ## Clone
-Clone or fork this repo (using submodules)
+Clone or fork this repo
 
 ```bash
-git clone git@github.com:bigchaindb/bigchaindb-react-webpack-boilerplate.git my-bigchaindb-project --recursive 
+git clone git@github.com:bigchaindb/bigchaindb-react-boilerplate.git my-bigchaindb-project
 ```
 
 and
@@ -13,11 +15,7 @@ and
 cd my-bigchaindb-project
 ```
 
-Now you can set your remotes to your local app and so forth
-
 ## Server-side setup
-
-> Supports BigchainDB Server v0.10 (Warning: use CORS enabled [branch](https://github.com/bigchaindb/bigchaindb/tree/kyber-master-feat-cors) untill [PR #1311](https://github.com/bigchaindb/bigchaindb/pull/1311) is resolved )
 
 First things first. You'll need a (local) BigchainDB server to get going with the API.
 
@@ -30,15 +28,15 @@ If you want run the server locally follow these steps:
 You must have `docker`, `docker-compose` (and `make`) installed.
 These versions or higher should work:
 
-- `docker`: `v1.13.0`
-- `docker-compose`: `v1.7.1`
+- `docker`: `v18.06.0`
+- `docker-compose`: `v1.22.0`
 
 #### Locally launch BigchainDB server
 
 To spin up the services, simple run the make command, which will orchestrate `docker-compose`
 
 ```bash
-make
+docker-compose up bigchaindb -d
 ```
 
 This might take a few minutes, perfect moment for a :coffee:!
@@ -46,49 +44,26 @@ This might take a few minutes, perfect moment for a :coffee:!
 Once docker-compose has built and launched all services, have a look:
 
 ```bash
-docker-compose ps
+docker ps
 ```
 
 ```
-           Name                         Command               State            Ports
-----------------------------------------------------------------------------------------------
-mybigchaindbproject_bdb-server_1   bigchaindb start                 Up      0.0.0.0:49984->9984/tcp
-mybigchaindbproject_mdb_1          docker-entrypoint.sh mongo ...   Up      0.0.0.0:32773->27017/tcp
+CONTAINER ID        IMAGE                          COMMAND                  CREATED             STATUS                    PORTS                                                                 NAMES
+1f498d10838f        bigchaindb/bigchaindb:master   "bigchaindb -l DEBUG…"   12 minutes ago      Up 12 minutes (healthy)   0.0.0.0:9984-9985->9984-9985/tcp, 0.0.0.0:32779->26658/tcp            react-boilerplate_bigchaindb_1
+f5a528286025        mongo:3.6                      "docker-entrypoint.s…"   12 minutes ago      Up 12 minutes             0.0.0.0:32778->27017/tcp                                              react-boilerplate_mongodb_1
+99181b8c236c        tendermint/tendermint:0.22.8   "sh -c 'tendermint i…"   12 minutes ago      Up 12 minutes             46656-46657/tcp, 0.0.0.0:32777->26656/tcp, 0.0.0.0:32776->26657/tcp   react-boilerplate_tendermint_1
 ```
 
-Which means that the internal docker port for the API is `9984` 
-and the external one is `49984`.
+Which means that the BigchainDB docker port for the API is `9984`.
 
 The external ports might change, so for the following use the ports as indicated by `docker-compose ps`.
 
-You can simply check if it's running by going to `http://localhost:<external-docker-port-bdb-server>`.
+You can simply check if it's running by going to `http://localhost:9984`.
 
-If you already built the images and want to `restart`:
-
-```bash
-make restart
-```
-
-Stop (and remove) the containers with
+To stop BigchainDB run:
 
 ```bash
-make stop
-```
-
-#### Launch docker-compose services manually
-
-No make? Launch the services manually:
-
-Launch MongoDB:
-
-```bash
-docker-compose up -d mdb
-```
-
-Wait about 10 seconds and then launch the server:
-
-```bash
-docker-compose up -d bdb-server
+docker-compose stop
 ```
 
 ## Client-side Setup
@@ -97,8 +72,8 @@ docker-compose up -d bdb-server
 
 For the client you'll need `node` and `npm`: These versions or higher should work:
 
-- `node`: `v6.2.2`
-- `npm`: `v3.9.5`
+- `node`: `v8.11.3`
+- `npm`: `v5.6.0`
 
 ### Install
 
@@ -110,7 +85,7 @@ npm install
 ### Launch
 
 ```
-npm start
+npm run start
 ```
 
 Note that hot reloading is enabled and should pick up all the changes in the `js` and `scss` source.

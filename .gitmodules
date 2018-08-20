@@ -1,3 +1,0 @@
-[submodule "bigchaindb-server"]
-	path = bigchaindb-server
-	url = git@github.com:bigchaindb/bigchaindb
